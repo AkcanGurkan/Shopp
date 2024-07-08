@@ -1,0 +1,2 @@
+# Shopp
+ Gelişime açık proje
