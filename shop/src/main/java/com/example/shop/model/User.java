@@ -2,6 +2,7 @@ package com.example.shop.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "users")
@@ -9,6 +10,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "boş olamaz")
     private String customerName;
     private String customerSurname;
     private String password;
