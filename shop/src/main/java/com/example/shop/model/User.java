@@ -1,8 +1,6 @@
 package com.example.shop.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.*;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "users")
@@ -10,33 +8,20 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "boş olamaz")
-    private String customerName;
-    private String customerSurname;
-    private String password;
     @Column(unique = true)
     private String username;
-    private Long phoneNumber;
-
+    private String password;
+    private String email;
+    private String customerName;
+    private String customerSurname;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Cart cart;
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getCustomerSurname() { return customerSurname; }
-
-    public void setCustomerSurname(String customerSurname){ this.customerSurname = customerSurname; }
 
     public String getUsername() {
         return username;
@@ -54,12 +39,35 @@ public class User {
         this.password = password;
     }
 
-    public Long getPhoneNumber() {
-        return phoneNumber;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPhoneNumber(Long phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerSurname() {
+        return customerSurname;
+    }
+
+    public void setCustomerSurname(String customerSurname) {
+        this.customerSurname = customerSurname;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
 }

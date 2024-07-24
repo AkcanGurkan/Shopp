@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -38,7 +38,7 @@ public class UserController {
             User updatedUser = user.get();
             updatedUser.setUsername(userDetails.getUsername());
             updatedUser.setPassword(userDetails.getPassword());
-            updatedUser.setPhoneNumber(userDetails.getPhoneNumber());
+            updatedUser.setEmail(userDetails.getEmail());
             updatedUser.setCustomerName(userDetails.getCustomerName());
             updatedUser.setCustomerSurname(userDetails.getCustomerSurname());
             return ResponseEntity.ok(userService.saveUser(updatedUser));
