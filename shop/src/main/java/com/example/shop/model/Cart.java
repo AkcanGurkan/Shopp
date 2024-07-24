@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
+@Data
 @Entity
 @Table(name = "carts")
 public class Cart {
@@ -19,7 +20,7 @@ public class Cart {
     private List<CartItem> items;
 
     // Getters and Setters
-    public Long getId() {
+    /*public Long getId() {
         return id;
     }
 
@@ -41,5 +42,5 @@ public class Cart {
 
     public void setItems(List<CartItem> items) {
         this.items = items;
-    }
+    }*/
 }
