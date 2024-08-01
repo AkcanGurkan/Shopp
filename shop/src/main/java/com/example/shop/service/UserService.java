@@ -22,25 +22,14 @@ public class UserService {
     }
 
     public List<UserDtO> getAllUsers() {
-        // Tüm kullanıcıları veritabanından al
         List<User> users = userRepository.findAll();
-
-        // Kullanıcıları yazdır
-        System.out.println("Users from repository:");
-        users.forEach(user -> System.out.println(user.toString()));
 
         List<UserDtO> userDTOs = users.stream()
                 .map(user -> {
                     UserDtO userDTO = userMapper.userToUserDtO(user);
-                    System.out.println("Mapped UserDTO: " + userDTO.toString());
                     return userDTO;
                 })
                 .collect(Collectors.toList());
-
-        // Sonuç listesini yazdır
-        System.out.println("Final UserDTO List:");
-        userDTOs.forEach(userDTO -> System.out.println(userDTO.toString()));
-
         return userDTOs;
     }
 
