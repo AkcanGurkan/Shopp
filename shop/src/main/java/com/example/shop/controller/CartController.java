@@ -1,13 +1,11 @@
 package com.example.shop.controller;
 
-import com.example.shop.model.Cart;
-import com.example.shop.model.CartItem;
+import com.example.shop.entity.Cart;
+import com.example.shop.entity.CartItem;
 import com.example.shop.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/carts")
