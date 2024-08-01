@@ -1,9 +1,9 @@
-package com.example.shop.model;
+package com.example.shop.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.*;
-import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "customers")
 public class Customer {
