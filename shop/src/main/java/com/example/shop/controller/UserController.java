@@ -1,16 +1,21 @@
 package com.example.shop.controller;
 
 import com.example.shop.dto.UserDtO;
+import com.example.shop.entity.User;
 import com.example.shop.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 import java.util.List;
+import java.util.Optional;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController
 @Tag(name = "User Controller API", description = "Operations related to users")
@@ -34,6 +39,7 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+
     @Operation(summary = "Get user by ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the user."),
@@ -41,8 +47,21 @@ public class UserController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<UserDtO> getUserById(@PathVariable Long id) {
-        UserDtO user = userService.getUserById(id).orElse(null); // UserDtO al
+        UserDtO user = userService.getUserById(id).orElse(null);
         return user != null ? new ResponseEntity<>(user, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @Operation(summary = "Get user info by token.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the user."),
+            @ApiResponse(responseCode = "404", description = "User not found.")
+    })
+    @GetMapping("/info")
+    public ResponseEntity<UserDtO> getUserInfo(@RequestHeader("Authorization") String authorizationHeader) {
+        String token = authorizationHeader.substring(7);
+        System.out.println(token);
+        UserDtO userDto = userService.getUserInfoFromToken(token);
+        return ResponseEntity.ok(userDto);
     }
 
     @Operation(summary = "Creates a new user.")

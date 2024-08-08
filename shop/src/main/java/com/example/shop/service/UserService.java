@@ -5,6 +5,8 @@ import com.example.shop.entity.User;
 import com.example.shop.exception.UserNotFoundException;
 import com.example.shop.mapper.UserMapper;
 import com.example.shop.repository.UserRepository;
+import com.example.shop.security.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +17,14 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final UserMapper userMapper = UserMapper.INSTANCE;
+    private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository) {
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     public List<UserDtO> getAllUsers() {
@@ -39,10 +45,17 @@ public class UserService {
         return Optional.of(userMapper.userToUserDtO(user));
     }
 
+    public UserDtO getUserInfoFromToken(String token) {
+        String username = jwtUtil.extractUsername(token);
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("User not found with username: " + username));
+        UserDtO userDto = userMapper.userToUserDtO(user);
+        return userDto;
+    }
     public UserDtO createUser(UserDtO userDtO) {
-        User user = UserMapper.INSTANCE.userDtOToUser(userDtO);
+        User user = userMapper.userDtOToUser(userDtO);
         user = userRepository.save(user);
-        return UserMapper.INSTANCE.userToUserDtO(user);
+        return userMapper.userToUserDtO(user);
     }
 
     public UserDtO saveUser(UserDtO userDtO) {

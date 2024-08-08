@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "carts")
 public class Cart {
-
+//CARTDTO oluşturularak user'a o maplenecek
     @Id
     @Schema(description = "Unique identifier of a cart", example = "1")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

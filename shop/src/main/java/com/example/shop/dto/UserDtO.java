@@ -1,15 +1,14 @@
 package com.example.shop.dto;
 
+import com.example.shop.entity.Cart;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.OneToOne;
+import lombok.*;
 import org.springframework.context.annotation.Configuration;
 
-@Data
-@Configuration
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 public class UserDtO {
 
     @Schema(description = "Unique identifier of the user", example = "1")
@@ -29,4 +28,5 @@ public class UserDtO {
 
     @Schema(description = "Password of the user", example = "password123")
     private String password;
+
 }

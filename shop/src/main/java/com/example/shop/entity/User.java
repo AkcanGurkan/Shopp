@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.ResponseEntity;
+
+import java.util.Optional;
 
 @Data
 @Entity
@@ -36,5 +39,4 @@ public class User {
     @Schema(description = "Cart of the user", example = "None")
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Cart cart;
-
 }
