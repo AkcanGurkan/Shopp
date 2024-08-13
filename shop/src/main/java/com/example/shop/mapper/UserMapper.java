@@ -10,7 +10,6 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring") // bütün mapperlara eklenmesi gerek.
 public interface UserMapper {
 
-    @Mapping(target = "id", source = "user.id")
     UserDtO userToUserDtO(User user);
 
     User userDtOToUser(UserDtO userDtO);

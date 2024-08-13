@@ -1,10 +1,11 @@
 package com.example.shop.service;
 
 import com.example.shop.dto.UserDtO;
+import com.example.shop.entity.Role;
 import com.example.shop.entity.User;
 import com.example.shop.repository.UserRepository;
 import com.example.shop.security.JwtTokenProvider;
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.example.shop.dto.LoginResponseDtO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,15 +33,26 @@ public class AuthService {
         user.setUsername(userDtO.getUsername());
         user.setEmail(userDtO.getEmail());
         user.setPassword(passwordEncoder.encode(userDtO.getPassword()));
+
+        if (userDtO.getRole() == null) {
+            throw new RuntimeException("Rol bilgisi eksik.");
+        }
+
+        user.setRole(Role.valueOf(userDtO.getRole().toUpperCase())); // Rolü ayarlama
+
+        if (userDtO.getRole().equals("ROLE_CUSTOMER")) {
+            user.setCustomerName(userDtO.getCustomerName());
+            user.setCustomerSurname(userDtO.getCustomerSurname());
+        } else if (userDtO.getRole().equals("ROLE_SELLER")) {
+            user.setStoreName(userDtO.getStoreName());
+        }
+
         userRepository.save(user);
     }
 
-    public String login(UserDtO userDtO) {
-
+    public LoginResponseDtO login(UserDtO userDtO) {
         User user = userRepository.findByUsername(userDtO.getUsername())
-                .orElseThrow(() -> {
-                    return new RuntimeException("Invalid username or password");
-                });
+                .orElseThrow(() -> new RuntimeException("Invalid username or password"));
 
         boolean passwordMatch = passwordEncoder.matches(userDtO.getPassword(), user.getPassword());
 
@@ -49,7 +61,8 @@ public class AuthService {
         }
 
         String token = jwtTokenProvider.createToken(user.getUsername());
+        String role = user.getRole().name();
 
-        return token;
+        return new LoginResponseDtO(token, role);
     }
 }
