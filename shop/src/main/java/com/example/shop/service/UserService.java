@@ -7,11 +7,11 @@ import com.example.shop.mapper.UserMapper;
 import com.example.shop.repository.UserRepository;
 import com.example.shop.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -29,19 +29,17 @@ public class UserService {
 
     public List<UserDtO> getAllUsers() {
         List<User> users = userRepository.findAll();
-
-        List<UserDtO> userDTOs = users.stream()
-                .map(user -> {
-                    UserDtO userDTO = userMapper.userToUserDtO(user);
-                    return userDTO;
-                })
-                .collect(Collectors.toList());
-        return userDTOs;
+        return userMapper.toDTOList(users);
     }
 
     public Optional<UserDtO> getUserById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+        return Optional.of(userMapper.userToUserDtO(user));
+    }
+    public Optional<UserDtO> getUserByUsername(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("User not found with username: " + username));
         return Optional.of(userMapper.userToUserDtO(user));
     }
 
@@ -94,4 +92,9 @@ public class UserService {
         }
         userRepository.deleteById(id);
     }
+    public User getCurrentUser(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
 }

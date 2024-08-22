@@ -1,6 +1,7 @@
 package com.example.shop.controller;
 
 import com.example.shop.dto.LoginResponseDtO;
+import com.example.shop.dto.RegisterResponseDtO;
 import com.example.shop.dto.UserDtO;
 import com.example.shop.service.AuthService;
 import org.springframework.http.HttpStatus;
@@ -33,11 +34,11 @@ public class AuthController {
             @ApiResponse(responseCode = "409", description = "User already exists")
     })
     @PostMapping("/register")
-    public ResponseEntity<String> register(
+    public ResponseEntity<RegisterResponseDtO> register(
             @RequestBody(description = "User details for registration", required = true)
             @org.springframework.web.bind.annotation.RequestBody UserDtO userDtO) {
-        authService.register(userDtO);
-        return new ResponseEntity<>("User registered successfully", HttpStatus.CREATED);
+        RegisterResponseDtO registerResponse = authService.register(userDtO);
+        return ResponseEntity.ok(registerResponse);
     }
 
     @Operation(summary = "Authenticate user", description = "Authenticates a user and returns a token")
@@ -46,6 +47,7 @@ public class AuthController {
                     content = @Content(schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "401", description = "Invalid credentials")
     })
+
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDtO> login(
             @RequestBody(description = "User credentials for login", required = true)

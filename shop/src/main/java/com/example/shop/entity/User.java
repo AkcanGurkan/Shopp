@@ -6,6 +6,8 @@ import lombok.Data;
 import org.springframework.context.annotation.Configuration;
 import com.example.shop.entity.Role;
 
+import java.util.List;
+
 @Data
 @Entity
 @Configuration
@@ -40,4 +42,7 @@ public class User {
     @Schema(description = "Cart of the user", example = "None")
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Cart cart;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Wallet wallet;
 }

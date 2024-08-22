@@ -1,8 +1,10 @@
 package com.example.shop.service;
 
+import com.example.shop.dto.RegisterResponseDtO;
 import com.example.shop.dto.UserDtO;
 import com.example.shop.entity.Role;
 import com.example.shop.entity.User;
+import com.example.shop.entity.Wallet;
 import com.example.shop.repository.UserRepository;
 import com.example.shop.security.JwtTokenProvider;
 import com.example.shop.dto.LoginResponseDtO;
@@ -24,7 +26,7 @@ public class AuthService {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    public void register(UserDtO userDtO) {
+    public RegisterResponseDtO register(UserDtO userDtO) {
         if (userRepository.findByUsername(userDtO.getUsername()).isPresent()) {
             throw new RuntimeException("Kullanıcı adı zaten mevcut: " + userDtO.getUsername());
         }
@@ -38,7 +40,7 @@ public class AuthService {
             throw new RuntimeException("Rol bilgisi eksik.");
         }
 
-        user.setRole(Role.valueOf(userDtO.getRole().toUpperCase())); // Rolü ayarlama
+        user.setRole(Role.valueOf(userDtO.getRole().toUpperCase()));
 
         if (userDtO.getRole().equals("ROLE_CUSTOMER")) {
             user.setCustomerName(userDtO.getCustomerName());
@@ -47,7 +49,17 @@ public class AuthService {
             user.setStoreName(userDtO.getStoreName());
         }
 
+        Wallet wallet = new Wallet();
+        wallet.setBalance(100.0);
+        wallet.setUser(user);
+        user.setWallet(wallet);
+
+        String username = user.getUsername();
+        String role = user.getRole().name();
+        Double amount = user.getWallet().getBalance();
+
         userRepository.save(user);
+        return new RegisterResponseDtO(username, role, amount);
     }
 
     public LoginResponseDtO login(UserDtO userDtO) {
@@ -62,7 +74,9 @@ public class AuthService {
 
         String token = jwtTokenProvider.createToken(user.getUsername());
         String role = user.getRole().name();
+        Double amount = user.getWallet().getBalance();
+        Long id = user.getId();
 
-        return new LoginResponseDtO(token, role);
+        return new LoginResponseDtO(token, role, amount, id);
     }
 }

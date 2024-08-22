@@ -2,6 +2,7 @@ package com.example.shop.service;
 
 import com.example.shop.dto.CommentDtO;
 import com.example.shop.entity.Comment;
+import com.example.shop.entity.Product;
 import com.example.shop.mapper.CommentMapper;
 import com.example.shop.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,8 @@ public class CommentService {
     }
 
     public List<CommentDtO> getAllComments() {
-        return commentRepository.findAll().stream()
-                .map(commentMapper::commentToCommentDtO)
-                .collect(Collectors.toList());
+        List<Comment> comments = commentRepository.findAll();
+        return commentMapper.toDTOList(comments);
     }
 
     public List<CommentDtO> getCommentsByProductId(Long productId) {

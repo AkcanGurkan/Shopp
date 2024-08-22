@@ -39,7 +39,6 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-
     @Operation(summary = "Get user by ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the user."),
@@ -48,6 +47,17 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserDtO> getUserById(@PathVariable Long id) {
         UserDtO user = userService.getUserById(id).orElse(null);
+        return user != null ? new ResponseEntity<>(user, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @Operation(summary = "Get user by username.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the user."),
+            @ApiResponse(responseCode = "404", description = "User not found.")
+    })
+    @GetMapping("usn/{username}")
+    public ResponseEntity<UserDtO> getUserByUsername(@PathVariable String username) {
+        UserDtO user = userService.getUserByUsername(username).orElse(null);
         return user != null ? new ResponseEntity<>(user, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 

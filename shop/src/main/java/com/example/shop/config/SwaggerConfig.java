@@ -24,7 +24,7 @@ public class SwaggerConfig {
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
                 .group("springshop-public")
-                .pathsToMatch("/users/**", "/carts/**", "/auth/**", "/comments/**")
+                .pathsToMatch("/users/**", "/carts/**", "/auth/**", "/comments/**", "/products/**", "/wallet/**")
                 .build();
     }
 }
