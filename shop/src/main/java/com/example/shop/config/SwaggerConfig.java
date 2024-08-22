@@ -1,4 +1,4 @@
-package com.example.shop;
+package com.example.shop.config;
 
 import io.swagger.v3.oas.annotations.servers.Server;
 import org.springdoc.core.models.GroupedOpenApi;
@@ -24,7 +24,7 @@ public class SwaggerConfig {
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
                 .group("springshop-public")
-                .pathsToMatch("/users/**", "/carts/**")
+                .pathsToMatch("/users/**", "/carts/**", "/auth/**", "/comments/**", "/products/**", "/wallet/**")
                 .build();
     }
 }

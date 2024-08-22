@@ -1,19 +1,18 @@
 package com.example.shop.dto;
 
+import com.example.shop.entity.Cart;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.OneToOne;
+import lombok.*;
 import org.springframework.context.annotation.Configuration;
 
-@Data
-@Configuration
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 public class UserDtO {
 
     @Schema(description = "Unique identifier of the user", example = "1")
-    private Long id;
+    private Long id; //userid olmamalı
 
     @Schema(description = "Username of the user", example = "john_doe")
     private String username;
@@ -29,4 +28,9 @@ public class UserDtO {
 
     @Schema(description = "Password of the user", example = "password123")
     private String password;
+
+    private String role;
+
+    private String storeName;
+
 }

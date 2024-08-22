@@ -2,10 +2,11 @@ package com.example.shop.entity;
 
 import jakarta.persistence.*;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import com.example.shop.entity.Role;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -27,14 +28,21 @@ public class User {
     @Schema(description = "Email address of the user", example = "john@example.com")
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @Schema(description = "Customer's first name", example = "John")
     private String customerName;
 
     @Schema(description = "Customer's last name", example = "Doe")
     private String customerSurname;
 
+    private String storeName;
+
     @Schema(description = "Cart of the user", example = "None")
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Cart cart;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Wallet wallet;
 }
