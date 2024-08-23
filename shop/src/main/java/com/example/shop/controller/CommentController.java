@@ -36,6 +36,12 @@ public class CommentController {
         return commentService.getCommentsByProductId(productId);
     }
 
+    @Operation(summary = "Get comments by author ID")
+    @GetMapping("/author/{username}")
+    public List<CommentDtO> getCommentsByUserId(@PathVariable String username) {
+        return commentService.getCommentsByUserId(username);
+    }
+
     @Operation(summary = "Delete a comment by ID")
     @DeleteMapping("/{id}")
     public void deleteComment(@PathVariable Long id) {
