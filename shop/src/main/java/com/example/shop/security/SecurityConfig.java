@@ -27,9 +27,6 @@ public class SecurityConfig {
                 .cors()
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/customer/**").hasRole("CUSTOMER")
-                        .requestMatchers("/seller/**").hasRole("SELLER")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session

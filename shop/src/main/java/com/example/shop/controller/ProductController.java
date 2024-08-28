@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 @Tag(name = "Product Controller API", description = "Operations related to products")
-@RequestMapping("/products")
+@RequestMapping("/api")
 public class ProductController {
 
     private final ProductService productService;
@@ -30,7 +30,7 @@ public class ProductController {
             @ApiResponse(responseCode = "200", description = "Showed all products."),
             @ApiResponse(responseCode = "404", description = "Products not found.")
     })
-    @GetMapping
+    @GetMapping("/products")
     public List<ProductDtO> getAllProducts() {
         return productService.getAllProducts();
     }
@@ -40,7 +40,7 @@ public class ProductController {
             @ApiResponse(responseCode = "200", description = "Product with given id found."),
             @ApiResponse(responseCode = "404", description = "Product not found.")
     })
-    @GetMapping("/{id}")
+    @GetMapping("/products/{id}")
     public ResponseEntity<ProductDtO> getProductById(@PathVariable Long id) {
         ProductDtO productDtO = productService.getProductById(id).orElse(null);
         return productDtO != null ? new ResponseEntity<>(productDtO, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -51,7 +51,7 @@ public class ProductController {
             @ApiResponse(responseCode = "200", description = "User with given id found."),
             @ApiResponse(responseCode = "404", description = "User not found.")
     })
-    @GetMapping("/user/{username}")
+    @GetMapping("/products/user/{username}")
     public List<ProductDtO>  getProductByUserId(@PathVariable String username) {
         return productService.getProductByUsername(username);
     }
@@ -61,7 +61,7 @@ public class ProductController {
             @ApiResponse(responseCode = "200", description = "Created a product."),
             @ApiResponse(responseCode = "404", description = "Product not created.")
     })
-    @PostMapping
+    @PostMapping("/seller/products")
     public ProductDtO createProduct(@RequestBody ProductDtO productDTO) {
         return productService.createProduct(productDTO);
     }
@@ -70,7 +70,7 @@ public class ProductController {
             @ApiResponse(responseCode = "200", description = "Purchased product."),
             @ApiResponse(responseCode = "404", description = "Product not purchased.")
     })
-    @PostMapping("purchase/{productId}/{userId}")
+    @PostMapping("/customer/products/purchase/{productId}/{userId}")
     public ResponseEntity<PurchaseResponseDtO> purchaseProduct(@PathVariable Long productId, @PathVariable Long userId) {
         PurchaseResponseDtO response = productService.purchaseProduct(productId, userId);
         return ResponseEntity.ok(response);

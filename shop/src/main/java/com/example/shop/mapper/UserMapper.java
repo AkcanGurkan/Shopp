@@ -11,7 +11,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring") // bütün mapperlara eklenmesi gerek.
 public interface UserMapper {
-
     UserDtO userToUserDtO(User user);
     User userDtOToUser(UserDtO userDtO);
     List<UserDtO> toDTOList(List<User> users);

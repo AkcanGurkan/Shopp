@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 
 @RestController
 @Tag(name = "Wallet Controller API", description = "Operations related to wallets")
-@RequestMapping("/wallet")
+@RequestMapping("/api")
 public class WalletController {
     private final WalletService walletService;
 
@@ -30,13 +30,13 @@ public class WalletController {
             @ApiResponse(responseCode = "200", description = "Found the user."),
             @ApiResponse(responseCode = "404", description = "User not found.")
     })
-    @GetMapping("/{userId}")
+    @GetMapping("/wallet/{userId}")
     public ResponseEntity<WalletResponseDtO> getWalletBalance(@PathVariable Long userId) {
         WalletResponseDtO response = walletService.getWalletBalance(userId);
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/{userId}")
+    @PostMapping("/wallet/{userId}")
     public ResponseEntity<WalletResponseDtO> updateWalletBalance(@PathVariable Long userId, @RequestBody Double amount) {
         WalletResponseDtO response = walletService.updateWalletBalance(userId, amount);
         return ResponseEntity.ok(response);
