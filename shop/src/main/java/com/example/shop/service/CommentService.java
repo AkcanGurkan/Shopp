@@ -44,6 +44,12 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
+    public List<CommentDtO> getCommentsByOwner(String username) {
+        return commentRepository.findByAuthor(username).stream()
+                .map(commentMapper::commentToCommentDtO)
+                .collect(Collectors.toList());
+    }
+
     public List<CommentDtO> getCommentsByProductId(Long productId) {
         return commentRepository.findByProductId(productId).stream()
                 .map(commentMapper::commentToCommentDtO)

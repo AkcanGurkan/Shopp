@@ -40,6 +40,11 @@ public class ProductService {
         return Optional.of(productMapper.productToProductDto(product));
     }
 
+    public List<ProductDtO> getProductByUsername(String username) {
+        List<Product> products = productRepository.findAllByOwnerUsername(username);
+        return productMapper.toDTOList(products);
+    }
+
     public ProductDtO createProduct(ProductDtO productDTO) {
         Product product = productMapper.productDtOToProduct(productDTO);
         User currentUser = userService.getCurrentUser(product.getOwnerUsername());

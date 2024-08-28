@@ -46,6 +46,16 @@ public class ProductController {
         return productDtO != null ? new ResponseEntity<>(productDtO, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @Operation(summary = "Get product by user.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User with given id found."),
+            @ApiResponse(responseCode = "404", description = "User not found.")
+    })
+    @GetMapping("/user/{username}")
+    public List<ProductDtO>  getProductByUserId(@PathVariable String username) {
+        return productService.getProductByUsername(username);
+    }
+
     @Operation(summary = "Creates a new product.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Created a product."),
