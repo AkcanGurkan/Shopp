@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/api")
 public class OrderController {
 
     private final OrderService orderService;
@@ -21,30 +21,30 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping
+    @GetMapping("/orders")
     public ResponseEntity<List<OrderResponseDtO>> getAllOrders() {
         List<OrderResponseDtO> allOrders = orderService.getAllOrders();
         return ResponseEntity.ok(allOrders);
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/orders/{userId}")
     public ResponseEntity<List<OrderResponseDtO>> getOrderHistory(@PathVariable Long userId) {
         List<OrderResponseDtO> orderHistory = orderService.getOrderHistory(userId);
         return ResponseEntity.ok(orderHistory);
     }
 
-    @GetMapping("seller/{userId}")
+    @GetMapping("/orders/seller/{userId}")
     public ResponseEntity<List<OrderResponseDtO>> getOrderHistorySeller(@PathVariable Long userId) {
         List<OrderResponseDtO> orderHistory = orderService.getOrderHistorySeller(userId);
         return ResponseEntity.ok(orderHistory);
     }
 
-    @PostMapping("/{userId}")
+    @PostMapping("/customer/orders/{userId}")
     public MessageResponseDtO createOrder(@PathVariable Long userId, @RequestBody OrderRequestDtO orderRequestDtO) {
         return orderService.createOrder(userId, orderRequestDtO);
     }
 
-    @PutMapping("/{orderId}")
+    @PutMapping("/customer/orders/{orderId}")
     public MessageResponseDtO setOrderStatus(@PathVariable Long orderId, @RequestBody OrderPutRequestDtO orderPutRequestDtO){
         return orderService.setOrderStatus(orderId, orderPutRequestDtO);
     }

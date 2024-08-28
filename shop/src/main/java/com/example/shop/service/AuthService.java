@@ -72,7 +72,7 @@ public class AuthService {
             throw new RuntimeException("Invalid username or password");
         }
 
-        String token = jwtTokenProvider.createToken(user.getUsername());
+        String token = jwtTokenProvider.createToken(user.getUsername(), user.getRole().name());
         String role = user.getRole().name();
         Double amount = user.getWallet().getBalance();
         Long id = user.getId();

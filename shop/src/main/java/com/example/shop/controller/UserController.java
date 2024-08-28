@@ -19,7 +19,7 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController
 @Tag(name = "User Controller API", description = "Operations related to users")
-@RequestMapping("/users")
+@RequestMapping("/api")
 public class UserController {
 
     private final UserService userService;
@@ -33,7 +33,7 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "Showed all users."),
             @ApiResponse(responseCode = "404", description = "Users not found.")
     })
-    @GetMapping
+    @GetMapping("/users")
     public ResponseEntity<List<UserDtO>> getAllUsers() {
         List<UserDtO> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
@@ -44,7 +44,7 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "Found the user."),
             @ApiResponse(responseCode = "404", description = "User not found.")
     })
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<UserDtO> getUserById(@PathVariable Long id) {
         UserDtO user = userService.getUserById(id).orElse(null);
         return user != null ? new ResponseEntity<>(user, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -55,7 +55,7 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "Found the user."),
             @ApiResponse(responseCode = "404", description = "User not found.")
     })
-    @GetMapping("usn/{username}")
+    @GetMapping("/users/usn/{username}")
     public ResponseEntity<UserDtO> getUserByUsername(@PathVariable String username) {
         UserDtO user = userService.getUserByUsername(username).orElse(null);
         return user != null ? new ResponseEntity<>(user, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -66,7 +66,7 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "Found the user."),
             @ApiResponse(responseCode = "404", description = "User not found.")
     })
-    @GetMapping("/info")
+    @GetMapping("/users/info")
     public ResponseEntity<UserDtO> getUserInfo(@RequestHeader("Authorization") String authorizationHeader) {
         String token = authorizationHeader.substring(7);
         System.out.println(token);
@@ -79,7 +79,7 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "Created a user."),
             @ApiResponse(responseCode = "404", description = "User not created.")
     })
-    @PostMapping
+    @PostMapping("/admin/users")
     public ResponseEntity<UserDtO> createUser(@RequestBody UserDtO userDtO) {
         UserDtO newUser = userService.saveUser(userDtO);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
@@ -90,7 +90,7 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "Updated the user."),
             @ApiResponse(responseCode = "404", description = "User not found or couldn't update.")
     })
-    @PutMapping("/{id}")
+    @PutMapping("/admin/users/{id}")
     public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UserDtO userDtO) {
         userService.updateUser(id, userDtO);
         return new ResponseEntity<>("User updated successfully", HttpStatus.OK);
@@ -101,7 +101,7 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "Deleted the user."),
             @ApiResponse(responseCode = "404", description = "User not found or couldn't delete.")
     })
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/users/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

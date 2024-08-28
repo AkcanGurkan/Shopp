@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/comments")
+@RequestMapping("/api")
 @Tag(name = "Comment Management System", description = "Operations pertaining to comment in Comment Management System")
 public class CommentController {
 
@@ -19,43 +19,43 @@ public class CommentController {
     private CommentService commentService;
 
     @Operation(summary = "Add a new comment")
-    @PostMapping
+    @PostMapping("/customer/comments")
     public CommentDtO addComment(@RequestBody CommentDtO commentDTO) {
         return commentService.addComment(commentDTO);
     }
 
     @Operation(summary = "View a list of all comments")
-    @GetMapping
+    @GetMapping("/comments")
     public List<CommentDtO> getAllComments() {
         return commentService.getAllComments();
     }
 
     @Operation(summary = "Get comments by product ID")
-    @GetMapping("/product/{productId}")
+    @GetMapping("/comments/product/{productId}")
     public List<CommentDtO> getCommentsByProductId(@PathVariable Long productId) {
         return commentService.getCommentsByProductId(productId);
     }
 
     @Operation(summary = "Get comments by author ID")
-    @GetMapping("/author/{username}")
+    @GetMapping("/comments/author/{username}")
     public List<CommentDtO> getCommentsByUserId(@PathVariable String username) {
         return commentService.getCommentsByUserId(username);
     }
 
     @Operation(summary = "Get comments by product owner username")
-    @GetMapping("/owner/{username}")
+    @GetMapping("/comments/owner/{username}")
     public List<CommentDtO> getCommentsByOwner(@PathVariable String username) {
         return commentService.getCommentsByOwner(username);
     }
 
     @Operation(summary = "Delete a comment by ID")
-    @DeleteMapping("admin/{id}")
+    @DeleteMapping("/comments/admin/{id}")
     public void deleteComment(@PathVariable Long id) {
         commentService.deleteComment(id);
     }
 
     @Operation(summary = "Get a comment by ID")
-    @GetMapping("/{id}")
+    @GetMapping("/comments/{id}")
     public Optional<CommentDtO> getCommentById(@PathVariable Long id) {
         return commentService.getCommentById(id);
     }
