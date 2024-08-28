@@ -7,6 +7,7 @@ import com.example.shop.entity.User;
 import com.example.shop.mapper.ProductMapper;
 import com.example.shop.repository.ProductRepository;
 import com.example.shop.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,11 @@ public class ProductService {
         return Optional.of(productMapper.productToProductDto(product));
     }
 
+    public List<ProductDtO> getProductByUsername(String username) {
+        List<Product> products = productRepository.findAllByOwnerUsername(username);
+        return productMapper.toDTOList(products);
+    }
+
     public ProductDtO createProduct(ProductDtO productDTO) {
         Product product = productMapper.productDtOToProduct(productDTO);
         User currentUser = userService.getCurrentUser(product.getOwnerUsername());
@@ -47,6 +53,7 @@ public class ProductService {
         return productMapper.productToProductDto(savedProduct);
     }
 
+    @Transactional
     public PurchaseResponseDtO purchaseProduct(Long productId, Long userId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
@@ -68,8 +75,6 @@ public class ProductService {
 
         BigDecimal newBalance = userBalance.subtract(productPrice);
         user.getWallet().setBalance(newBalance.doubleValue());
-
-        product.getUserProducts().add(user);
 
         productRepository.save(product);
         userRepository.save(user);

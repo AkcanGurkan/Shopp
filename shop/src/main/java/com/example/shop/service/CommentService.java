@@ -2,7 +2,8 @@ package com.example.shop.service;
 
 import com.example.shop.dto.CommentDtO;
 import com.example.shop.entity.Comment;
-import com.example.shop.entity.Product;
+import com.example.shop.repository.UserRepository;
+import com.example.shop.entity.User;
 import com.example.shop.mapper.CommentMapper;
 import com.example.shop.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class CommentService {
     private CommentRepository commentRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private CommentMapper commentMapper;
 
     public CommentDtO addComment(CommentDtO commentDTO) {
@@ -32,6 +36,18 @@ public class CommentService {
     public List<CommentDtO> getAllComments() {
         List<Comment> comments = commentRepository.findAll();
         return commentMapper.toDTOList(comments);
+    }
+
+    public List<CommentDtO> getCommentsByUserId(String username) {
+        return commentRepository.findByAuthor(username).stream()
+                .map(commentMapper::commentToCommentDtO)
+                .collect(Collectors.toList());
+    }
+
+    public List<CommentDtO> getCommentsByOwner(String username) {
+        return commentRepository.findByAuthor(username).stream()
+                .map(commentMapper::commentToCommentDtO)
+                .collect(Collectors.toList());
     }
 
     public List<CommentDtO> getCommentsByProductId(Long productId) {

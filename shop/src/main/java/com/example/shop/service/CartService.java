@@ -1,37 +1,37 @@
 package com.example.shop.service;
 
+import com.example.shop.dto.CartDtO;
 import com.example.shop.entity.Cart;
-import com.example.shop.entity.CartItem;
+import com.example.shop.mapper.CartMapper;
 import com.example.shop.repository.CartRepository;
-import com.example.shop.repository.CartItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-
 public class CartService {
+
     @Autowired
     private CartRepository cartRepository;
-    @Autowired
-    private CartItemRepository cartItemRepository;
 
-    public Cart getCartByUserId(Long userId) {
-        return cartRepository.findByUserId(userId);
+
+    private final CartMapper cartMapper;
+
+    public CartService(CartMapper cartMapper) {
+        this.cartMapper = cartMapper;
     }
 
-    public Cart saveCart(Cart cart) {
-        return cartRepository.save(cart);
+    public CartDtO getCartByUserId(Long userId) {
+        Cart cart = cartRepository.findByUserId(userId);
+        return cartMapper.cartToCartDto(cart);
+    }
+
+    public CartDtO saveCart(CartDtO cartDto) {
+        Cart cart = cartMapper.cartDtoToCart(cartDto);
+        Cart savedCart = cartRepository.save(cart);
+        return cartMapper.cartToCartDto(savedCart);
     }
 
     public void deleteCart(Long id) {
         cartRepository.deleteById(id);
-    }
-
-    public CartItem addCartItem(CartItem cartItem) {
-        return cartItemRepository.save(cartItem);
-    }
-
-    public void removeCartItem(Long id) {
-        cartItemRepository.deleteById(id);
     }
 }
