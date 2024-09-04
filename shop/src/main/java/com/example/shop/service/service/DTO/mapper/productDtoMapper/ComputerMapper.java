@@ -12,28 +12,28 @@ import org.mapstruct.Mapping;
 public interface ComputerMapper {
 
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
+    //@Mapping(source = "name", target = "name")
     @Mapping(source = "brandName", target = "brand.name")
     @Mapping(source = "modelName", target = "model.name")
     Computer toComputer(GetAllComputerResponse getAllComputerResponses);
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
+   // @Mapping(source = "name", target = "name")
     @Mapping(source = "brand.name", target = "brandName")
     @Mapping(source = "model.name", target = "modelName")
     GetAllComputerResponse toGetAllComputerResponse(Computer computer);
 
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
+   // @Mapping(source = "name", target = "name")
     @Mapping(source = "brandName", target = "brand.name")
     @Mapping(source = "modelName", target = "model.name")
     Computer toComputer(GetIdComputerResponse getIdComputerResponse);
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
+   // @Mapping(source = "name", target = "name")
     @Mapping(source = "brand.name", target = "brandName")
     @Mapping(source = "model.name", target = "modelName")
     GetIdComputerResponse toGetIdComputerResponse(Computer computer);
 
-    // @Mapping(source = "name", target = "name")
+    //@Mapping(source = "name", target = "name")
     @Mapping(source = "brandId", target = "brand.id")
     @Mapping(source = "modelId", target = "model.id")
     Computer toComputer(CreateComputerRequest createComputerRequest);
@@ -43,12 +43,12 @@ public interface ComputerMapper {
     CreateComputerRequest toCreateComputerRequest(Computer computer);
 
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
+   // @Mapping(source = "name", target = "name")
     @Mapping(source = "brandName", target = "brand.name")
     @Mapping(source = "modelName", target = "model.name")
     Computer toComputer(UpdateComputerRequest updateComputerRequest);
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
+    //@Mapping(source = "name", target = "name")
     @Mapping(source = "brand.name", target = "brandName")
     @Mapping(source = "model.name", target = "modelName")
     UpdateComputerRequest toUpdateComputerRequest(Computer computer);

@@ -12,25 +12,25 @@ import org.mapstruct.Mapping;
 public interface TvMapper {
 
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
+    //@Mapping(source = "name", target = "name")
     @Mapping(source = "brandName", target = "brand.name")
     @Mapping(source = "modelName", target = "model.name")
     Tv toTv(GetAllTvResponse getAllTvResponse);
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
-    @Mapping(source = "brand.name", target = "brandName")
-    @Mapping(source = "model.name", target = "modelName")
+     @Mapping(source = "id", target = "id")
+     //@Mapping(source = "name", target = "name")
+     @Mapping(source = "brand.name", target = "brandName")
+     @Mapping(source = "model.name", target = "modelName")
     GetAllTvResponse toGetAllTvResponse(Tv tv);
 
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
-    @Mapping(source = "brandName", target = "brand.name")
-    @Mapping(source = "modelName", target = "model.name")
+     @Mapping(source = "id", target = "id")
+    // @Mapping(source = "name", target = "name")
+     @Mapping(source = "brandName", target = "brand.name")
+     @Mapping(source = "modelName", target = "model.name")
     Tv toTv(GetIdTvResponse getIdTvResponse);
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
-    @Mapping(source = "brand.name", target = "brandName")
-    @Mapping(source = "model.name", target = "modelName")
+     @Mapping(source = "id", target = "id")
+     //@Mapping(source = "name", target = "name")
+     @Mapping(source = "brand.name", target = "brandName")
+     @Mapping(source = "model.name", target = "modelName")
     GetIdTvResponse toGetIdTvResponse(Tv tv);
 
    // @Mapping(source = "name", target = "name")
@@ -43,14 +43,14 @@ public interface TvMapper {
     CreateTvRequest toCreateTvRequest(Tv tv);
 
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
+   // @Mapping(source = "name", target = "name")
     @Mapping(source = "brandName", target = "brand.name")
     @Mapping(source = "modelName", target = "model.name")
     Tv toTv(UpdateTvRequest updateTvRequest);
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
-    @Mapping(source = "brand.name", target = "brandName")
-    @Mapping(source = "model.name", target = "modelName")
+     @Mapping(source = "id", target = "id")
+    // @Mapping(source = "name", target = "name")
+     @Mapping(source = "brand.name", target = "brandName")
+     @Mapping(source = "model.name", target = "modelName")
     UpdateTvRequest toUpdateTvRequest(Tv tv);
 
 

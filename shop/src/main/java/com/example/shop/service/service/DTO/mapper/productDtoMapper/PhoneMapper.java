@@ -11,45 +11,45 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface PhoneMapper {
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
+    //@Mapping(source = "name", target = "name")
     @Mapping(source = "brandName", target = "brand.name")
     @Mapping(source = "modelName", target = "model.name")
     Phone toPhone(GetAllPhoneResponse getAllPhoneResponses);
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
+    //@Mapping(source = "name", target = "name")
     @Mapping(source = "brand.name", target = "brandName")
     @Mapping(source = "model.name", target = "modelName")
     GetAllPhoneResponse toGetAllPhoneResponse(Phone phone);
 
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
+    //@Mapping(source = "name", target = "name")
     @Mapping(source = "brandName", target = "brand.name")
     @Mapping(source = "modelName", target = "model.name")
     Phone toPhone(GetIdPhoneResponse getIdPhoneResponse);
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
+    //@Mapping(source = "name", target = "name")
     @Mapping(source = "brand.name", target = "brandName")
     @Mapping(source = "model.name", target = "modelName")
     GetIdPhoneResponse toGetIdPhoneResponse(Phone phone);
 
-    // @Mapping(source = "name", target = "name")
+   // @Mapping(source = "name", target = "name")
     @Mapping(source = "brandId", target = "brand.id")
     @Mapping(source = "modelId", target = "model.id")
     Phone toPhone (CreatePhoneRequest createPhoneRequest);
-    //@Mapping(source = "name", target = "name")
+   // @Mapping(source = "name", target = "name")
     @Mapping(source = "brand.id", target = "brandId")
     @Mapping(source = "model.id", target = "modelId")
     CreatePhoneRequest toCreatePhoneRequest(Phone phone);
 
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
-    @Mapping(source = "brandName", target = "brand.name")
-    @Mapping(source = "modelName", target = "model.name")
+     @Mapping(source = "id", target = "id")
+     //@Mapping(source = "name", target = "name")
+     @Mapping(source = "brandName", target = "brand.name")
+     @Mapping(source = "modelName", target = "model.name")
     Phone toPhone(UpdatePhoneRequest updatePhoneRequest);
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
-    @Mapping(source = "brand.name", target = "brandName")
-    @Mapping(source = "model.name", target = "modelName")
+     @Mapping(source = "id", target = "id")
+    // @Mapping(source = "name", target = "name")
+     @Mapping(source = "brand.name", target = "brandName")
+     @Mapping(source = "model.name", target = "modelName")
     UpdatePhoneRequest toUpdatePhoneRequest(Phone phone);
 
 }

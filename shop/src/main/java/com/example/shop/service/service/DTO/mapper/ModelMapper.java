@@ -12,11 +12,10 @@ import org.mapstruct.Mapping;
 public interface ModelMapper {
 
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
+
     @Mapping(source = "brandName", target = "brand.name")
     Model toModel(GetAllModelResponse getAllModelResponse);
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
     @Mapping(source = "brand.name", target = "brandName")
     GetAllModelResponse toGetAllModelResponse(Model model);
 
