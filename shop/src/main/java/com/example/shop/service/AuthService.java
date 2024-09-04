@@ -2,6 +2,7 @@ package com.example.shop.service;
 
 import com.example.shop.dto.RegisterResponseDtO;
 import com.example.shop.dto.UserDtO;
+import com.example.shop.entity.Cart;
 import com.example.shop.entity.Role;
 import com.example.shop.entity.User;
 import com.example.shop.entity.Wallet;

@@ -4,7 +4,6 @@ import com.example.shop.dto.OrderPutRequestDtO;
 import com.example.shop.dto.OrderRequestDtO;
 import com.example.shop.dto.MessageResponseDtO;
 import com.example.shop.dto.OrderResponseDtO;
-import com.example.shop.entity.Order;
 import com.example.shop.service.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

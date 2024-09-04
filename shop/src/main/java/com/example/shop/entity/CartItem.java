@@ -15,14 +15,22 @@ public class CartItem {
 
     @Schema(description = "Unique identifier of a cart.", example = "1")
     @ManyToOne
-    @JoinColumn(name = "cart_id") //sepetn id
+    @JoinColumn(name = "cart_id")
     private Cart cart;
 
     @Schema(description = "Unique identifier of a product.", example = "1")
-    @Column(name = "product_id") // eşya id
+    @Column(name = "product_id")
     private Long productId;
 
     @Schema(description = "Quantity of the product.", example = "1")
-    @Column(name = "quantity") // sayı
+    @Column(name = "quantity")
     private int quantity;
+
+    @Schema(description = "Price of the product.", example = "100")
+    @Column(name = "price")
+    private Double price;
+
+    @Schema(description = "Name of the product.", example = "Telefon")
+    @Column(name = "productName")
+    private String productName;
 }
