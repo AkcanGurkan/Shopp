@@ -42,12 +42,12 @@ public interface ComputerMapper {
     @Mapping(source = "model.id", target = "modelId")
     CreateComputerRequest toCreateComputerRequest(Computer computer);
 
-    @Mapping(source = "id", target = "id")
+    //@Mapping(source = "id", target = "id")
    // @Mapping(source = "name", target = "name")
     @Mapping(source = "brandName", target = "brand.name")
     @Mapping(source = "modelName", target = "model.name")
     Computer toComputer(UpdateComputerRequest updateComputerRequest);
-    @Mapping(source = "id", target = "id")
+    //@Mapping(source = "id", target = "id")
     //@Mapping(source = "name", target = "name")
     @Mapping(source = "brand.name", target = "brandName")
     @Mapping(source = "model.name", target = "modelName")
