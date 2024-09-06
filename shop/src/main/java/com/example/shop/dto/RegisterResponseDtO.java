@@ -9,7 +9,6 @@ public class RegisterResponseDtO {
     private String username;
     private String role;
     private Double amount;
-
     public RegisterResponseDtO(String username, String role, Double amount) {
         this.username = username;
         this.role = role;

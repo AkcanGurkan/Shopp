@@ -65,12 +65,12 @@ public class AuthService {
 
     public LoginResponseDtO login(UserDtO userDtO) {
         User user = userRepository.findByUsername(userDtO.getUsername())
-                .orElseThrow(() -> new RuntimeException("Invalid username or password"));
+                .orElseThrow(() -> new RuntimeException("Kullanıcı adı veya şifre hatalı."));
 
         boolean passwordMatch = passwordEncoder.matches(userDtO.getPassword(), user.getPassword());
 
         if (!passwordMatch) {
-            throw new RuntimeException("Invalid username or password");
+            throw new RuntimeException("Kullanıcı adı veya şifre hatalı.");
         }
 
         String token = jwtTokenProvider.createToken(user.getUsername(), user.getRole().name());
