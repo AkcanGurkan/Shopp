@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class UserDtO {
 
     @Schema(description = "Unique identifier of the user", example = "1")
-    private Long id; //userid olmamalı
+    private Long id;
 
     @Schema(description = "Username of the user", example = "john_doe")
     private String username;

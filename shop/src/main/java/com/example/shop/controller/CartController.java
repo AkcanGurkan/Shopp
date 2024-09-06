@@ -1,6 +1,8 @@
 package com.example.shop.controller;
 
+import com.example.shop.dto.AddToCartDto;
 import com.example.shop.dto.CartDtO;
+import com.example.shop.dto.UpdateCartItemRequest;
 import com.example.shop.service.CartService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -48,4 +50,28 @@ public class CartController {
         cartService.deleteCart(id);
         return ResponseEntity.noContent().build();
     }
+
+    @Operation(summary = "Deletes a user's cart.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Deleted the cart."),
+            @ApiResponse(responseCode = "404", description = "User not found or couldn't delete the cart.")
+    })
+    @PostMapping("/add-item")
+    public ResponseEntity<CartDtO> addItemToCart(@RequestBody AddToCartDto addToCartDto) {
+        CartDtO updatedCart = cartService.addItemToCart(addToCartDto);
+        return ResponseEntity.ok(updatedCart);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<CartDtO> updateCartItemQuantity(@RequestBody UpdateCartItemRequest request) {
+        CartDtO updatedCart = cartService.updateCartItemQuantity(request.getUserId(), request.getProductId(), request.getQuantity());
+        return ResponseEntity.ok(updatedCart);
+    }
+
+    @DeleteMapping("/remove/{userId}/{productId}")
+    public ResponseEntity<CartDtO> removeFromCart(@PathVariable Long userId, @PathVariable Long productId) {
+        CartDtO updatedCart = cartService.removeFromCart(userId, productId);
+        return ResponseEntity.ok(updatedCart);
+    }
+
 }

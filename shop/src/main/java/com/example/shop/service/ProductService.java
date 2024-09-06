@@ -56,30 +56,21 @@ public class ProductService {
     @Transactional
     public PurchaseResponseDtO purchaseProduct(Long productId, Long userId) {
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new RuntimeException("Ürün bulunamadı."));
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("Kullanıcı bulunamadı."));
 
-        BigDecimal userBalance = BigDecimal.valueOf(user.getWallet().getBalance());
-        BigDecimal productPrice = product.getPrice();
 
         if (product.getStock() <= 0) {
-            return new PurchaseResponseDtO("Product is out of stock");
-        }
-
-        if (userBalance.compareTo(productPrice) < 0) {
-            return new PurchaseResponseDtO("Insufficient balance");
+            return new PurchaseResponseDtO("Ürün stokta yok.");
         }
 
         product.setStock(product.getStock() - 1);
 
-        BigDecimal newBalance = userBalance.subtract(productPrice);
-        user.getWallet().setBalance(newBalance.doubleValue());
-
         productRepository.save(product);
         userRepository.save(user);
 
-        return new PurchaseResponseDtO("Product purchased successfully");
+        return new PurchaseResponseDtO("Ürün başarıyla satın alındı.");
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.shop.service;
 
 import com.example.shop.dto.RegisterResponseDtO;
 import com.example.shop.dto.UserDtO;
+import com.example.shop.entity.Cart;
 import com.example.shop.entity.Role;
 import com.example.shop.entity.User;
 import com.example.shop.entity.Wallet;
@@ -64,12 +65,12 @@ public class AuthService {
 
     public LoginResponseDtO login(UserDtO userDtO) {
         User user = userRepository.findByUsername(userDtO.getUsername())
-                .orElseThrow(() -> new RuntimeException("Invalid username or password"));
+                .orElseThrow(() -> new RuntimeException("Kullanıcı adı veya şifre hatalı."));
 
         boolean passwordMatch = passwordEncoder.matches(userDtO.getPassword(), user.getPassword());
 
         if (!passwordMatch) {
-            throw new RuntimeException("Invalid username or password");
+            throw new RuntimeException("Kullanıcı adı veya şifre hatalı.");
         }
 
         String token = jwtTokenProvider.createToken(user.getUsername(), user.getRole().name());

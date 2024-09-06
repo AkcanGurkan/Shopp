@@ -13,9 +13,6 @@ public class CartDtO {
     @Schema(description = "Unique identifier of a cart", example = "1")
     private Long id;
 
-    @Schema(description = "Unique identifier of the cart owner", example = "1")
-    private Long userId;
-
     @Schema(description = "Items in the cart", example = "None")
     private List<CartItemDtO> items;
 }
